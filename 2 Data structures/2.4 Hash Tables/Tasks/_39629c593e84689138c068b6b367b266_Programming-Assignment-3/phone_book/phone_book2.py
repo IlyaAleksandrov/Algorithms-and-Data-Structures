@@ -42,6 +42,7 @@ def write_responses(result):
 
 def process_queries(queries):
     result = []
+    # in the task we should use direct addressing scheme
     contacts = [0] * 10000000
     for cur_query in queries:
         if cur_query.type == 'add':
