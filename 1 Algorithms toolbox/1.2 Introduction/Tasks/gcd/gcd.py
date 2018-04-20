@@ -3,13 +3,10 @@
 
 def gcd(a, b):
     if b > a:
-        tmp = a
-        a = b
-        b = tmp
+        a, b = b, a
     if b == 0:
         return a
-    else:
-        return gcd(b, a % b)
+    return gcd(b, a % b)
 
 
 a, b = map(int, input().split())
