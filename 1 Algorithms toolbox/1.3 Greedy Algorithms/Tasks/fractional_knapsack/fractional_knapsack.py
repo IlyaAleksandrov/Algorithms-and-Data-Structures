@@ -9,7 +9,7 @@
 
 # Output Format. Output the maximal value of fractions of items that fit into the knapsack. The absolute
 # value of the difference between the answer of your program and the optimal value should be at most
-# 10−3. To ensure this, output your answer with at least four digits after the decimal point (otherwise
+# 10^−3. To ensure this, output your answer with at least four digits after the decimal point (otherwise
 # your answer, while being computed correctly, can turn out to be wrong because of rounding issues).
 
 import sys
@@ -18,13 +18,13 @@ import sys
 def get_optimal_value(capacity, weights, values):
     value = 0
     lst = []
-    # Заполняем список ценностью каждой вещи за 1 кг
+    # filling array with values per 1 kilo
     for i in range(len(weights)):
         lst.append([values[i] / weights[i], i])
-    # Сортируем список от самой дорогой к менее
+    # sorting array by values (from max to min)
     lst.sort(reverse=True)
-    # Начиная с самой дорогой вещи пробуем положить её целиком в рюкзак
-    # Если не помещается, берем сколько можем и завершаем перебор
+    # trying to put the full existance of the most expensive item
+    # if the capacity is less, taking how much we can and break
     for j in range(len(lst)):
         if weights[lst[j][1]] <= capacity:
             capacity -= weights[lst[j][1]]
@@ -42,3 +42,8 @@ if __name__ == "__main__":
     weights = data[3:(2 * n + 2):2]
     opt_value = get_optimal_value(capacity, weights, values)
     print("{:.10f}".format(opt_value))
+# example of input:
+# 3 50  (3 items, 50 - max capacity)
+# 60 20 (next 3 pairs: value - weight)
+# 100 50
+# 120 30 
