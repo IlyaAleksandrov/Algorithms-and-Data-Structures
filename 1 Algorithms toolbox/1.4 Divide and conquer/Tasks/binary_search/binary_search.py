@@ -14,15 +14,19 @@ import sys
 
 def binary_search(a, x, left, right):
 
-    # Сравниваем центральный элемент последовательности с искомым элементом и т.к.последоательность упорядоченая,
-    # отбрасываем половину последовательности где элемента быть не может.
+    # Works only for sorted array.
+    # We comparing middle element of the array with the input element
+    # if it did not fits the answer we taking in account in which part of the array it could be
+    # and making a recursive call of that function for that part
+
     if right < left:
         return - 1
-    # номер центрального элемента
+    # finding the middle element of sequence
     mid = left + (right - left) // 2
-    # в случае совпадения возвращаем номер ЦЭ
+    # if it fits the input, returning his index
     if x == a[mid]:
         return mid
+    # else choosing the part of the sequence to make a recursive call
     elif x < a[mid]:
         return binary_search(a, x, left, mid - 1)
     else:
@@ -37,3 +41,6 @@ if __name__ == '__main__':
     a = data[1: n + 1]
     for x in data[n + 2:]:
         print(binary_search(a, x,  0, len(a) - 1), end=' ')
+# example of input:
+# 5 1 5 8 12 13 (5 - number of elements, after sequance of sort elements)
+# 5 8 1 23 1 11 (5 - number of elements to find, after sequance of elements to find in privious array)
