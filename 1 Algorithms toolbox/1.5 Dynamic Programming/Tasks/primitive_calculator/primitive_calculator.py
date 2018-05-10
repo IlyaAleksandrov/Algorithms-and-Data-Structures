@@ -23,8 +23,8 @@ def optimal_sequence(n):
     Actions = [0, 0, 3, 1, 2]
     # const of MAX value
     MAX = 10**6
-    # filling the arrays with default values till n-th element
     for m in range(5, n + 1):
+        # filling the arrays with default values
         MinNumOfCoins.append(MAX)
         Actions.append(-1)
         # checking the index to divide on 3 and 2, otherwise taking +1 operation
