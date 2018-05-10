@@ -4,7 +4,7 @@
 # The next 𝑛 lines define the values and weights of the items. The 𝑖-th line contains integers 𝑣𝑖 and 𝑤𝑖—the
 # value and the weight of 𝑖-th item, respectively.
 
-# Constraints. 1 ≤ 𝑛 ≤ 103, 0 ≤ 𝑊 ≤ 2 · 106; 0 ≤ 𝑣𝑖 ≤ 2 · 106, 0 < 𝑤𝑖 ≤ 2 · 106 for all 1 ≤ 𝑖 ≤ 𝑛. All the
+# Constraints. 1 ≤ 𝑛 ≤ 10^3, 0 ≤ 𝑊 ≤ 2 · 10^6; 0 ≤ 𝑣𝑖 ≤ 2 · 10^6, 0 < 𝑤𝑖 ≤ 2 · 10^6 for all 1 ≤ 𝑖 ≤ 𝑛. All the
 # numbers are integers.
 
 # Output Format. Output the maximal value of fractions of items that fit into the knapsack. The absolute
@@ -23,8 +23,8 @@ def get_optimal_value(capacity, weights, values):
         lst.append([values[i] / weights[i], i])
     # sorting array by values (from max to min)
     lst.sort(reverse=True)
-    # trying to put the full existance of the most expensive item
-    # if the capacity is less, taking how much we can and break
+    # trying to put the full stack of the most expensive item
+    # if the capacity is less, take how much is possible and break
     for j in range(len(lst)):
         if weights[lst[j][1]] <= capacity:
             capacity -= weights[lst[j][1]]
@@ -44,6 +44,8 @@ if __name__ == "__main__":
     print("{:.10f}".format(opt_value))
 # example of input:
 # 3 50  (3 items, 50 - max capacity)
-# 60 20 (next 3 pairs: value - weight)
+# 60 20 (3 pairs: value - weight)
 # 100 50
-# 120 30 
+# 120 30
+# Output:
+# 180

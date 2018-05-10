@@ -4,7 +4,7 @@
 # 𝑛 pairwise distinct positive integers in increasing order. The next line contains an integer 𝑘 and 𝑘
 # positive integers 𝑏0, 𝑏1, . . . , 𝑏𝑘−1.
 
-# Constraints. 1 ≤ 𝑛, 𝑘 ≤ 105; 1 ≤ 𝑎𝑖 ≤ 109 for all 0 ≤ 𝑖 < 𝑛; 1 ≤ 𝑏𝑗 ≤ 109 for all 0 ≤ 𝑗 < 𝑘;
+# Constraints. 1 ≤ 𝑛, 𝑘 ≤ 10^5; 1 ≤ 𝑎𝑖 ≤ 10^9 for all 0 ≤ 𝑖 < 𝑛; 1 ≤ 𝑏𝑗 ≤ 10^9 for all 0 ≤ 𝑗 < 𝑘;
 
 # Output Format. For all 𝑖 from 0 to 𝑘 − 1, output an index 0 ≤ 𝑗 ≤ 𝑛 − 1 such that 𝑎𝑗 = 𝑏𝑖 or −1 if there
 # is no such index.
@@ -17,13 +17,13 @@ def binary_search(a, x, left, right):
     # Works only for sorted array.
     # We comparing middle element of the array with the input element
     # if it did not fits the answer we taking in account in which part of the array it could be
-    # and making a recursive call of that function for that part
+    # and making a recursive call of function for that part of sequence.
 
     if right < left:
         return - 1
     # finding the middle element of sequence
     mid = left + (right - left) // 2
-    # if it fits the input, returning his index
+    # if it fits the input, returning its index
     if x == a[mid]:
         return mid
     # else choosing the part of the sequence to make a recursive call
@@ -42,5 +42,7 @@ if __name__ == '__main__':
     for x in data[n + 2:]:
         print(binary_search(a, x,  0, len(a) - 1), end=' ')
 # example of input:
-# 5 1 5 8 12 13 (5 - number of elements, after sequance of sort elements)
-# 5 8 1 23 1 11 (5 - number of elements to find, after sequance of elements to find in privious array)
+# 5 1 5 8 12 13 (5 - number of elements, after sequrence of sort elements)
+# 5 8 1 23 1 11 (5 - number of elements to find, after sequence of elements to find in previous array)
+# output:
+# 2 0 -1 0 -1

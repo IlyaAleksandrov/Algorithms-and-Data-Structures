@@ -6,34 +6,42 @@
 # you cannot take a fraction of a bar).
 
 # Input Format. The first line of the input contains the capacity W of a knapsack and the number n of bars
-# of gold. The next line contains n integers w0;w1; : : : ;wn􀀀1 defining the weights of the bars of gold.
+# of gold. The next line contains n integers w0;w1; : : : ;wn-1 defining the weights of the bars of gold.
 
-# Constraints. 1  W  104; 1  n  300; 0  w0; : : : ;wn􀀀1  105.
+# Constraints. 1 <= W <= 10^4; 1 <= n <= 300; 0 <= w0; : : : ;wn-1 <= 10^5.
 
 # Output Format. Output the maximum weight of gold that fits into a knapsack of capacity W.
+
 import sys
+
 
 def optimal_weight(W, w):
     n = len(w)
-    # заполняем матрицу n х W (количество взятых первых элементов Х заполеность рюкзака)
+    # initializing matrix n х W (elements x capacity)
     value = [[0 for x in range(n + 1)] for y in range(W + 1)]
-    # значения первого столбца и строки оставляем равными 0 (0 вместимось/0 элементов взято)
+    # remain first column and first row stay equals zeroes (Zero capacity / Zero elements were taken).
     for i in range(1, n + 1):
         for j in range(1, W + 1):
-            # изначально, присваиваем ячейке значение с текущим размером рюкзака, но без нового элемента
+            # firstly, initialize the cell with the value of same knapsack capacity (j), but without new element(i-1)
             value[j][i] = value[j][i - 1]
-            # если текущая вместимость рюкзака прозволяет принять элемент
+            # if the current capacity fits to add new element
             if w[i - 1] <= j:
-                # то мы ищем в таблице максимально значение которое мы можем достичь с (i-1) элементами при условии
-                # что останется место для нового элемента (текущий рюкзак (j) минус вес нового элемента (w[i - 1]))
+                # we finding in table maximum value which we could achieve with i-1 elements? with the condition
+                # that were will be enough space for new element(current capacity j minus weight of new element)
                 val = value[j - w[i - 1]][i - 1] + w[i - 1]
-                # если значение получилось больше изначально присвоенного, принимаем его
+                # if the value is greater then initially assigned, taking it in account
                 if value[j][i] < val:
                     value[j][i] = val
-    # возвращаем значение полученное при максимальной вместимости и использовании всех элементов
+    # return the value of the max capacity and n
     return value[W][n]
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()
     W, n, *w = list(map(int, input.split()))
     print(optimal_weight(W, w))
+# Example of input:
+# 10 3 (10 - capacity, 3 - number of bars)
+# 1 4 8 (weight of bars)
+# Output:
+# 9
