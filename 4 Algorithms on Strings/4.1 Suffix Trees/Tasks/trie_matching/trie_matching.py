@@ -2,6 +2,10 @@
 # Another problem that can be solved efficiently with tries is the following.
 # Multiple Pattern Matching Problem
 # Find all occurrences of a collection of patterns in a text.
+# Problem Introduction (extended)
+# The goal in this problem is to extend the solution for the previous problem such that it will be able to handle
+# cases when one of the patterns is a prefix of another pattern. In this case, some patterns are spelled in a trie
+# by traversing a path from the root to an internal vertex, but not to a leaf.
 
 # Input: A string Text and a collection Patterns containing (shorter) strings.
 # Output: All starting positions in Text where a string from Patterns appears as a substring.
