@@ -19,13 +19,13 @@
 # otherwise it’s 0-based index of the parent of 𝑖-th node. It is guaranteed that there is exactly one root.
 # It is guaranteed that the input represents a tree.
 
-# Constraints. 1 ≤ 𝑛 ≤ 105.
+# Constraints. 1 ≤ 𝑛 ≤ 10^5.
 
 # Output Format. Output the height of the tree.
 
 import sys, threading
-sys.setrecursionlimit(10**7) # max depth of recursion
-threading.stack_size(2**27)  # new thread will get stack of such size
+sys.setrecursionlimit(10**7)  # max depth of recursion
+threading.stack_size(2**27)   # new thread will get stack of such size
 
 
 class TreeHeight:
@@ -34,7 +34,7 @@ class TreeHeight:
             self.parent = list(map(int, sys.stdin.readline().split()))
 
         def compute_height(self):
-                # создаем массив где индекс это узел
+                # making an array, index is the node's number
                 nodes = [[] for i in range(self.n)]
                 root = None
                 hight = 0
@@ -43,7 +43,7 @@ class TreeHeight:
                                 root = i
                         else:
                             nodes[self.parent[i]].append(i)
-                # создаем очередь из узлов, отделяем значением Nane каждый уровень дерева
+                # make a queue of nodes, separate every level of nodes by None value
                 q = [root, None]
                 if self.n == 0:
                     return hight
@@ -51,11 +51,14 @@ class TreeHeight:
                     while q != []:
                         tmp = q.pop(0)
                         if tmp == None:
+                            # increment height every time we find None value
                             hight += 1
+                            # finding None means that we proceed whole level of nodes
+                            # if the queue is not empty, we already put in queue all nodes from new level
+                            # and should put in it new None to point the end of new nodes
                             if len(q) == 0:
                                 break
                             q.append(None)
-                            continue
                         else:
                             for x in nodes[tmp]:
                                 q.append(x)
@@ -63,9 +66,15 @@ class TreeHeight:
 
 
 def main():
-  tree = TreeHeight()
-  tree.read()
-  print(tree.compute_height())
+    tree = TreeHeight()
+    tree.read()
+    print(tree.compute_height())
 
 
 threading.Thread(target=main).start()
+
+# Example of Input:
+# 5
+# 4 -1 4 1 1
+# Output:
+# 3

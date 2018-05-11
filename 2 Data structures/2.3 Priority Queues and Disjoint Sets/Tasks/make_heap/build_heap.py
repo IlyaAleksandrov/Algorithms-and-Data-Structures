@@ -17,7 +17,7 @@
 # Input Format. The first line of the input contains single integer 𝑛. The next line contains 𝑛 space-separated
 # integers 𝑎𝑖.
 
-# Constraints. 1 ≤ 𝑛 ≤ 100 000; 0 ≤ 𝑖, 𝑗 ≤ 𝑛 − 1; 0 ≤ 𝑎0, 𝑎1, . . . , 𝑎𝑛−1 ≤ 109. All 𝑎𝑖 are distinct.
+# Constraints. 1 ≤ 𝑛 ≤ 100 000; 0 ≤ 𝑖, 𝑗 ≤ 𝑛 − 1; 0 ≤ 𝑎0, 𝑎1, . . . , 𝑎𝑛−1 ≤ 10^9. All 𝑎𝑖 are distinct.
 
 # Output Format. The first line of the output should contain single integer 𝑚 — the total number of swaps.
 # 𝑚 must satisfy conditions 0 ≤ 𝑚 ≤ 4𝑛. The next 𝑚 lines should contain the swap operations used
@@ -60,12 +60,12 @@ class HeapBuilder:
         def SiftDown(i):
             l = LeftChild(i)
             r = RightChild(i)
-            # проверяем наличие обоих детей у узла
+            # check that both of nodes children are exist
             if l < size and r < size:
-                # определяем минимальный из трех узлов
+                # chose the minimum value from three nodes (parent and two children)
                 minimum = min(self._data[l], self._data[r], self._data[i])
-                # если родительский узел минимальный, ничего не делаем
-                # иначе меняем родителя с минимальным узлом и просееваем родительский узел вниз
+                # if parent node is minimum - do nothing
+                # otherwise swap parent and child and keep recursively swift it down
                 if minimum != self._data[i]:
                     if minimum == self._data[l]:
                         self._data[i], self._data[l] = self._data[l], self._data[i]
@@ -75,14 +75,15 @@ class HeapBuilder:
                         self._data[i], self._data[r] = self._data[r], self._data[i]
                         self._swaps.append((i, r))
                         SiftDown(r)
-            # если одного из дочерних узлов нет и родительский узел больше, меняем узлы местами и просееваем родителя вниз
+                    # all swaps are being writen to special array "swaps"
+            # if one of the nodes doesnt have both children do the same just for two nodes
             else:
                 if l < size and self._data[l] < self._data[i]:
                     self._data[i], self._data[l] = self._data[l], self._data[i]
                     self._swaps.append((i, l))
                     SiftDown(l)
 
-        # начиная с середины кучи и до корня делаем SiftDown (просеевание вниз) для каждого элемента
+        # for every node from the middle of a heap to the root make SiftDown (просеевание вниз)
         size = len(self._data)
         for i in range(size // 2, 0, -1):
             SiftDown(i - 1)
@@ -103,3 +104,11 @@ class HeapBuilder:
 if __name__ == '__main__':
     heap_builder = HeapBuilder()
     heap_builder.Solve()
+# Example of input:
+# 5
+# 5 4 3 2 1
+# Output:
+# 3
+# 1 4
+# 0 1
+# 1 3

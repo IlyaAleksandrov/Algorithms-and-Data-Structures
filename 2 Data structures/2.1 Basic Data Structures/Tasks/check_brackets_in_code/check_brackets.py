@@ -8,7 +8,7 @@
 # are ],}, and ).
 # For convenience, the text editor should not only inform the user that there is an error in the usage
 # of brackets, but also point to the exact place in the code with the problematic bracket. First priority
-# is to find the first unmatched closing bracket which either doesn’t have an opening bracket before it,
+# is to find the first unmatched closing bracket which either doesnt have an opening bracket before it,
 # like ] in ](), or closes the wrong opening bracket, like } in ()[}. If there are no such mistakes, then
 # it should find the first unmatched opening bracket without the corresponding closing bracket after it,
 # like ( in {}([]. If there are no mistakes, text editor should inform the user that the usage of brackets
@@ -30,13 +30,14 @@
 
 import sys
 
-# Создаем класс скобки, где в конструкторе определяем тип и позицию
+
+# making class Bracket with type and position
 class Bracket:
     def __init__(self, bracket_type, position):
         self.bracket_type = bracket_type
         self.position = position
 
-    # добавляем метод проверки скобок на соответствие
+    # method to match brackets types
     def match(self, c):
         if self.bracket_type == '[' and c == ']':
             return True
@@ -52,12 +53,13 @@ if __name__ == "__main__":
     top = ""
     opening_brackets_stack = []
     ans = 0
-    # идём по тексту и кладем попавшиеся открывающие скобки в стек
+    # searching for brackets in the text and putting them into stack
     for i, next in enumerate(text):
         if next == '(' or next == '[' or next == '{':
             opening_brackets_stack.append(Bracket(next, i))
-        # если попалась закрывающая, проверяем есть ли скобки в стеке и сопостовляем с верхней в стеке
+        # for closing brackets checking the top bracket in the stack to match it correctly
         elif next == ')' or next == ']' or next == '}':
+            # check the stack to have elements
             if opening_brackets_stack == []:
                 ans = i + 1
                 break
@@ -71,3 +73,12 @@ if __name__ == "__main__":
         print(opening_brackets_stack[len(opening_brackets_stack) - 1].position + 1)
     else:
         print('Success')
+# Example of input:
+# {[]}()
+# Output:
+# Success
+
+# Example of Input:
+# {[}
+# Output:
+# 3
