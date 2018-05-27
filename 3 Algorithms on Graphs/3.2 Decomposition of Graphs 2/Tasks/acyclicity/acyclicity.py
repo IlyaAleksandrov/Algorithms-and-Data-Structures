@@ -27,12 +27,12 @@ def acyclic(adj):
         postvisit[x] = count
         count += 1
 
-    # перебираем все узлы и номеруем их post-order
+    # traverse nodes post-order
     for i in range(len(adj)):
         if not visited[i]:
             visited[i] = True
             explore(i)
-    # если у дочернего узла Post-order номер меньше чем у узла-роителя, то в графе есть цикл
+    # if child node has Post-order number greater then parent has, means there is a cycle
     for x in range(len(adj)):
         for h in adj[x]:
             if postvisit[x] < postvisit[h]:
@@ -54,3 +54,13 @@ if __name__ == '__main__':
         adj[a - 1].append(b - 1)
     print(acyclic(adj))
 
+# Example of input:
+# 4 4
+# 1 2
+# 4 1
+# 2 3
+# 3 1
+# Output:
+# 1
+# Explanation:
+# This graph contains a cycle: 3 → 1 → 2 → 3.

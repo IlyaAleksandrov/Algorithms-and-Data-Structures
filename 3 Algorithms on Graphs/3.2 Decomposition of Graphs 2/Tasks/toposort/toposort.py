@@ -24,7 +24,7 @@ def toposort(adj):
                 explore(i)
                 postvisit.append(i + 1)
 
-    # перебираем узлы post-order и вносим по-очередно в массив
+    # traverse nodes post-order and adding to the array
     for i in range(len(adj)):
         if not visited[i]:
             explore(i)
@@ -45,4 +45,10 @@ if __name__ == '__main__':
         adj[a - 1].append(b - 1)
     toposort(adj)
     print(*postvisit)
-
+# Example of input:
+# 4 3
+# 1 2
+# 4 1
+# 3 1
+# Output:
+# 4 3 1 2
