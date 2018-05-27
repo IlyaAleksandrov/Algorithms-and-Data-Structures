@@ -42,14 +42,14 @@ class TreeOrders:
         for i in range(len(self.key)):
             self.tree.append([self.key[i], self.left[i], self.right[i]])
 
-    # во всех видах обходов деревьев мы используем похожий алгоритм, отличия заключаются в порядке рекурсивного вызова
-    # дочерних узлов и добавления обрабатываемого узла в итоговый список.
+    # in all kinds of tree traversals we use a similar algorithm, the differences are in the order of
+    # recursively calling the child nodes and adding the processed node to the final list
     def inOrder(self):
         def inorder_recursive(node, result):
-                # проверяем наличие дочерних узлов
+                # checking existence of children nodes
                 if node [1] == -1 and node[2] == -1:
                     result.append(node[0])
-                # если есть хоть один дочерний узел запускаем рекурсию
+                # if there is even one child node, run recursion
                 else:
                     if node[1] != -1:
                         inorder_recursive(self.tree[node[1]], result)
@@ -63,6 +63,7 @@ class TreeOrders:
 
     def preOrder(self):
         self.result = []
+        
         def preorder_recursive(node, result):
             if node[1] == -1 and node [2] == -1:
                 result.append(node[0])
@@ -79,6 +80,7 @@ class TreeOrders:
 
     def postOrder(self):
         self.result = []
+
         def postorder_recursive(node, result):
             if node[1] == -1 and node [2] == -1:
                 result.append(node[0])

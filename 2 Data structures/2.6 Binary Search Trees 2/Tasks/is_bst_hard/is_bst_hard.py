@@ -31,11 +31,11 @@
 import sys, threading
 
 sys.setrecursionlimit(10 ** 7)  # max depth of recursion
-threading.stack_size(2 ** 27)  # new thread will get stack of such size
+threading.stack_size(2 ** 27)   # new thread will get stack of such size
 
 
-# суть подхода в том, что в bsd при inorder обходе дерева, узел обработанный раньше
-# не может быть больше узла обработанного позже.
+# The essence of the approach is that in bsd with inorder tree traversal,
+# the node processed earlier can not be larger than the node processed later.
 def IsBinarySearchTree(tree):
     def inorder_recursive(node):
         if node[1] == -1 and node[2] == -1:
@@ -55,7 +55,7 @@ def IsBinarySearchTree(tree):
     for i in range(1, len(result)):
         if result[i][0] < result[i-1][0]:
             return False
-        # дополнительно добавлена проверка на равенство узла с его правам потомком (условие задачи)
+        # added check for equality of the node with its right child (task condition)
         elif result[i][0] == result[i-1][0] and result[i - 1][0] == tree[result[i][1]][0] and result[i][1] != -1:
             return False
     return True
@@ -73,3 +73,12 @@ def main():
 
 
 threading.Thread(target=main).start()
+# Example of input:
+# 3
+# 2 1 2
+# 2 -1 -1
+# 3 -1 -1
+# Output:
+# INCORRECT
+
+# The key of the left child of the root must be strictly smaller than the key of the root
