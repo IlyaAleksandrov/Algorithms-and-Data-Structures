@@ -9,18 +9,18 @@
 
 # Input Format. A graph is given in the standard format. The next line contains two vertices u and v.
 
-# Constraints. 2  n  105, 0  m  105, u 6= v, 1  u; v  n.
+# Constraints. 2 <= n <= 10^5, 0 <= m <= 10^5, u != v, 1 <= u,v <= n.
 
-# Output Format. Output the minimum number of edges in a path from u to v, or 􀀀1 if there is no path.
+# Output Format. Output the minimum number of edges in a path from u to v, or -1 if there is no path.
 
 import sys
 import queue
 
 
 # implementation of Breadth-first Search
-# инициализируем массив расстояний значениями -1, от начального узла ищем все связанные узлы, присваиваем им
-# расстояние 1 и добавляем в очередь на обработку. Продолжаем поиск дочерних непосещеных узлов,
-# каждый раз увеличивая расстояние до него на 1 от родительского.
+# initialize the array of distances with values -1, from the initial node we look for all the connected nodes,
+# assign them distance 1 and add to the processing queue. We continue to search for the child unvisited nodes,
+# each time increasing the distance to it by 1 from the parent.
 def distance(adj, s, t):
     Q.append(s)
     dist[s] = 0
@@ -47,4 +47,14 @@ if __name__ == '__main__':
         adj[b - 1].append(a - 1)
     s, t = data[2 * m] - 1, data[2 * m + 1] - 1
     print(distance(adj, s, t))
-
+# Example of input:
+# 4 4
+# 1 2
+# 4 1
+# 2 3
+# 3 1
+# 2 4
+# Output:
+# 2
+# Explanation:
+# There is a unique shortest path between vertices 2 and 4 in this graph: 2 - 1 - 4.

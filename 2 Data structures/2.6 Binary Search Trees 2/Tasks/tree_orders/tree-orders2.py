@@ -63,7 +63,7 @@ class TreeOrders:
 
     def preOrder(self):
         self.result = []
-        
+
         def preorder_recursive(node, result):
             if node[1] == -1 and node [2] == -1:
                 result.append(node[0])

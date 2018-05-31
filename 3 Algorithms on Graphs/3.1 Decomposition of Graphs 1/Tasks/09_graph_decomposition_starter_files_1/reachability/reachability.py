@@ -20,7 +20,8 @@
 
 import sys
 
-# поиск всех вершин, которых можно достичь из Х
+
+# searching all nodes, reachable from X
 def reach(adj, x, y):
     visited[x] = 1
     if x == y:
@@ -46,3 +47,15 @@ if __name__ == '__main__':
         adj[a - 1].append(b - 1)
         adj[b - 1].append(a - 1)
     print(reach(adj, x, y))
+
+# Example of input
+# 4 4
+# 1 2
+# 3 2
+# 4 3
+# 1 4
+# 1 4
+# Output:
+# 1
+# Explanation:
+# In this graph, there are two paths between vertices 1 and 4: 1-4 and 1-2-3-4.
