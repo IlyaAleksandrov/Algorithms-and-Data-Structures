@@ -105,3 +105,15 @@ def main():
 
 
 threading.Thread(target=main).start()
+
+# Input:
+# 5
+# 4 1 2
+# 2 3 4
+# 5 -1 -1
+# 1 -1 -1
+# 3 -1 -1
+# Output:
+# 1 2 3 4 5
+# 4 2 1 3 5
+# 1 3 2 5 4
