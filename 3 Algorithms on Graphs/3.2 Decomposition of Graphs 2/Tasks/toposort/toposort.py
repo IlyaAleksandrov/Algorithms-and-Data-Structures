@@ -7,7 +7,7 @@
 
 # Input Format. A graph is given in the standard format.
 
-# Constraints. 1 ≤ 𝑛 ≤ 105, 0 ≤ 𝑚 ≤ 105. The given graph is guaranteed to be acyclic.
+# Constraints. 1 ≤ 𝑛 ≤ 10^5, 0 ≤ 𝑚 ≤ 10^5. The given graph is guaranteed to be acyclic.
 
 # Output Format. Output any topological ordering of its vertices. (Many DAGs have more than just one
 # topological ordering. You may output any of them.)

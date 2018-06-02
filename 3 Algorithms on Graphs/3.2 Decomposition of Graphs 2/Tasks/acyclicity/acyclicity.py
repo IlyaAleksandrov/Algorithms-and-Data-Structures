@@ -9,7 +9,7 @@
 
 # Input Format. A graph is given in the standard format.
 
-# Constraints. 1 ≤ 𝑛 ≤ 103, 0 ≤ 𝑚 ≤ 103.
+# Constraints. 1 ≤ 𝑛 ≤ 10^3, 0 ≤ 𝑚 ≤ 10^3.
 
 # Output Format. Output 1 if the graph contains a cycle and 0 otherwise.
 
@@ -32,7 +32,7 @@ def acyclic(adj):
         if not visited[i]:
             visited[i] = True
             explore(i)
-    # if child node has Post-order number greater then parent has, means there is a cycle
+    # if child node has Post-order number greater then parent one, means there is a cycle
     for x in range(len(adj)):
         for h in adj[x]:
             if postvisit[x] < postvisit[h]:
