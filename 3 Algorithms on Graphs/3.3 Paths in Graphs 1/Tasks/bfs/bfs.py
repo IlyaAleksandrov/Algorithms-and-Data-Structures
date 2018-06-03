@@ -47,6 +47,7 @@ if __name__ == '__main__':
         adj[b - 1].append(a - 1)
     s, t = data[2 * m] - 1, data[2 * m + 1] - 1
     print(distance(adj, s, t))
+
 # Example of input:
 # 4 4
 # 1 2
