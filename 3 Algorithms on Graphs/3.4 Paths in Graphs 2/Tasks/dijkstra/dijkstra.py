@@ -9,7 +9,7 @@
 
 # Input Format. A graph is given in the standard format. The next line contains two vertices u and v.
 
-# Constraints. 1  n  103, 0  m  105, u 6= v, 1  u; v  n, edge weights are non-negative integers not
+# Constraints. 1 <= n <= 10^3, 0 <= m <= 10^5, u != v, 1 <= u; v <= n, edge weights are non-negative integers not
 # exceeding 103.
 
 # Output Format. Output the minimum weight of a path from u to v, or 􀀀1 if there is no path.
@@ -17,33 +17,33 @@
 import sys
 import queue
 
-# реализуем алгоритм дийкстры
+# implementation of dijkstra algorithm
+
 
 def distance(adj, cost, s, t):
-    # изначально расстояние до всех узлов infinity
+    # initially the distance to all nodes is equal to infinity
     dist[s] = 0
-    # добавляем в очередь исходный узел
+    # add the initial node to the queue
     H.append(s)
     while H != []:
         count = 0
         min = 0
-        #
         for i in range(len(H)):
             if dist[H[i]] < dist[H[min]]:
                 min = i
-        # выбираем узел в очереди путь до которого минимален
+        # select the node in the queue path to which is minimal
         u = H.pop(min)
-        # для каждого узла достижимого из выбранного ближайшего узла,
-        # мы про проверяем оптимальность пути через этот узел
+        # for each node reachable from the selected nearest node,
+        # we check the optimality of the path through this node
         for v in adj[u]:
             if dist[v] > dist[u] + cost[u][count]:
                 dist[v] = dist[u] + cost[u][count]
-                # сохраняем узел который привел нас к текущему для итогого построения пути
-                # (для данной задачи можно опустить)
+                # save the node that led us to the current one for the total path construction
+                # (for that task can be omitted)
                 prev[v] = u
                 H.append(v)
             count += 1
-    # итоговая проверка достижим ли искомый узел
+    # final check whether the target node is reachable
     if dist[t] != 10**8 + 1:
         return dist[t]
     return -1
@@ -68,3 +68,15 @@ if __name__ == '__main__':
     H = []
 
     print(distance(adj, cost, s, t))
+
+# Input:
+# 4 4
+# 1 2 1
+# 4 1 2
+# 2 3 2
+# 1 3 5
+# 1 3
+# Output:
+# 3
+# Explanation:
+# There is a unique shortest path from vertex 1 to vertex 3 in this graph (1 - 2 - 3), and it has weight 3.
