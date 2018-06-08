@@ -16,22 +16,21 @@
 import sys
 
 
-# возврат строки, после преобразования прошлой задачи
+# return a string, after converting the previous task
 def InverseBWT(bwt):
     n = len(bwt)
-    # сортируем символы по алфавиту
+    # sort symbols alphabetically
     first = [i for i in bwt]
     first.sort()
     matrix = [0 for i in range(n)]
-    # заполняем матрицу, каждой строке по индексу присваиваем
-    # значение из сортировки по алфавиту и изначальной BWT строки
+    # fill the matrix, each row by index is assigned a value from the alphabet sorting and the original BWT line
     for i in range(n):
         matrix[i] = [i, first[i], bwt[i]]
-    # сортируем строки матрицы по символам bwt сироки
+    # sort the rows of the matrix by the characters in bwt string
     matrix.sort(key=lambda i: i[2])
     result = []
-    # после сортировки, упорядоченая последовательность индексов в столбце 0 поменялась и приняла нужную нам форму
-    # берем индексы исходя из представленого алгоритма и добавляем в ответ соответствующий символ исходой строки
+    # After sorting, the ordered sequence of indices in column 0 has changed and has taken the form we need
+    # we take indices based on the presented algorithm and add into result corresponding character of initial string
     t = matrix[0][0]
     for i in range(n):
         t = matrix[t][0]
@@ -42,3 +41,8 @@ def InverseBWT(bwt):
 if __name__ == '__main__':
     bwt = sys.stdin.readline().strip()
     print(*InverseBWT(bwt), sep="")
+
+# Example of input:
+# AGGGAA$
+# Output:
+# GAGAGA$

@@ -2,6 +2,7 @@
 # Another problem that can be solved efficiently with tries is the following.
 # Multiple Pattern Matching Problem
 # Find all occurrences of a collection of patterns in a text.
+
 # Problem Introduction (extended)
 # The goal in this problem is to extend the solution for the previous problem such that it will be able to handle
 # cases when one of the patterns is a prefix of another pattern. In this case, some patterns are spelled in a trie
@@ -17,7 +18,7 @@
 # each of the following 𝑛 lines contains a pattern from Patterns = {𝑝1, . . . , 𝑝𝑛}.
 
 # Constraints. 1 ≤ |Text| ≤ 10 000; 1 ≤ 𝑛 ≤ 5 000; 1 ≤ |𝑝𝑖| ≤ 100 for all 1 ≤ 𝑖 ≤ 𝑛; all strings contain only
-# symbols A, C, G, T; no 𝑝𝑖 is a prefix of 𝑝𝑗 for all 1 ≤ 𝑖 ̸= 𝑗 ≤ 𝑛.
+# symbols A, C, G, T; no 𝑝𝑖 is a prefix of 𝑝𝑗 for all 1 ≤ 𝑖 != 𝑗 ≤ 𝑛.
 
 # Output Format. All starting positions in Text where a string from Patterns appears as a substring in
 # increasing order (assuming that Text is a 0-based array of symbols).
@@ -28,25 +29,26 @@ import sys
 def solve(text, n, patterns):
     result = []
 
-    # строим суффиксное дерево из паттернов
+    # we build a suffix tree from patterns
     def build_trie(patterns):
         tree = {0: {}}
         count = 0
         for p in patterns:
             currentNode = 0
-            # для каждого символа каждого паттерна
+            # for each character of each pattern
             for i in range(len(p)):
                 currentSymbol = p[i]
-                # если в дереве на месте текущего символа уже есть данный символ, то идем к следующему узлу
-                if tree[currentNode].get(currentSymbol) != None:
+                # if in the tree at the place of the current symbol there is already a given symbol,
+                # then go to the next node
+                if tree[currentNode].get(currentSymbol) is not None:
                     currentNode = tree[currentNode].get(currentSymbol)
-                # если нет до добавляем
+                # if not then added
                 else:
                     tree[count + 1] = {}
                     tree[currentNode][currentSymbol] = count + 1
                     currentNode = count + 1
                     count += 1
-            # в конце каждого паттерна добавляем 0, как символ окончания
+            # At the end of each pattern, add 0, as the end symbol
             tree[currentNode] = {0: 0}
         return tree
 
@@ -55,10 +57,11 @@ def solve(text, n, patterns):
         symbol = text[count]
         v = trie[0]
         while True:
-            # если мы добрались до узла с 0, то мы добрались до конца паттерна, можно возвращать 1 (успех)
+            # if we got to the node with 0, then we got to the end of the pattern, we can return 1 (success)
             if v.get(0) != None:
                 return 1
-            # если текущий символ имеется в дереве, переходим к следующему, кроверяя что мы не вышли за границы текста
+            # If the current symbol is present in the tree, proceed to the next one,
+            # verifying that we have not exceeded the boundaries of the text
             elif v.get(symbol) != None:
                 v = trie[v.get(symbol)]
                 count += 1
@@ -72,9 +75,9 @@ def solve(text, n, patterns):
     trie = build_trie(patterns)
     symbNumb = 0
     x = len(text)
-    # для алгоритма необходимо добавить в конец текста символ конца текста
+    # for the algorithm it is necessary to add the end-of-text symbol
     text += "0"
-    # для каждого сивола из текста проверяем на сопоставление с суффиксным деревом
+    # For each character in the text matching with the suffix tree one
     while symbNumb != x:
         ans = prefixTreeMatching(text, trie)
         if ans == 1:
@@ -92,3 +95,14 @@ for i in range(n):
 ans = solve(text, n, patterns)
 
 sys.stdout.write(' '.join(map(str, ans)) + '\n')
+
+# Example of input:
+# ACATA
+# 3
+# AT
+# A
+# AG
+# Output:
+# 0 2 4
+# Explanation:
+# Text contains occurrences of A at positions 0, 2, and 4, as well as an occurrence of AT at position 2.

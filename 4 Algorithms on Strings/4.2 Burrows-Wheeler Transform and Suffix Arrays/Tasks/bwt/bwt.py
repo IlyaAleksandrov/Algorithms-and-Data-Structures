@@ -18,14 +18,15 @@
 
 import sys
 
+
 def BWT(text):
     n = len(text)
     text2 = text * 2
     matrix = [0 for i in range(n)]
-    # создаем матрицу строк, каждая строка это это сдвиг исходной строки на 1 символ.
+    # create a matrix of rows, each line is a shift of the original string by 1 character
     for i in range(n):
         matrix[i] = text2[i:i + n]
-    # сортируем строки по алфавиту и выносим последний символ каждой строки в ответ.
+    # sort the lines alphabetically and take out the last character of each line into result
     matrix.sort()
     result = []
     for i in matrix:
@@ -36,3 +37,8 @@ def BWT(text):
 if __name__ == '__main__':
     text = sys.stdin.readline().strip()
     print(*BWT(text), sep="")
+
+# Example of input:
+# ACACACAC$
+# Output:
+# CCCC$AAAA
