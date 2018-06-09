@@ -9,7 +9,7 @@
 
 # Input Format. Strings Pattern and Genome.
 
-# Constraints. 1 ≤ |Pattern| ≤ 106; 1 ≤ |Genome| ≤ 106; both strings are over A, C, G, T.
+# Constraints. 1 ≤ |Pattern| ≤ 10^6; 1 ≤ |Genome| ≤ 10^6; both strings are over A, C, G, T.
 
 # Output Format. All starting positions in Genome where Pattern appears as a substring (using 0-based
 # indexing as usual).
@@ -25,9 +25,9 @@ def find_pattern(pattern, text):
     where the pattern starts in the text.
     """
 
-    # заполняем массив префиксными значениями (количество совпавших симвоов с паттерном)
-    # преимущество подхода в том что подсчет идет основываясь на префиксном значении предидущего символа,
-    # а не с начала строки
+    # fill the array with prefix values (the number of matched characters with a pattern)
+    # The advantage of the approach is that counting is based on the prefix value of the previous character,
+    # and not from the beginning of the line
     def ComputePrefixFunction(S):
         s = [0 for i in range(len(S))]
         border = 0
@@ -46,7 +46,7 @@ def find_pattern(pattern, text):
     s = ComputePrefixFunction(S)
     p = len(pattern)
     for i in range(len(pattern) + 1, len(S)):
-        # если значение префиксной функции равно длинне паттерна, добавляем индекс в вывод
+        # if the value of the prefix function is equal to the length of the pattern, add the index to the result
         if s[i] == p:
             result.append(i - 2 * p)
     return result
@@ -57,3 +57,10 @@ if __name__ == '__main__':
     text = sys.stdin.readline().strip()
     result = find_pattern(pattern, text)
     print(" ".join(map(str, result)))
+
+# Example of input:
+# ATAT
+# GATATATGCATATACTT
+# Output:
+# 1 3 9
+# The pattern appears at positions 1, 3, and 9 in the text.
