@@ -43,8 +43,8 @@ if __name__ == "__main__":
     opt_value = get_optimal_value(capacity, weights, values)
     print("{:.10f}".format(opt_value))
 # example of input:
-# 3 50  (3 items, 50 - max capacity)
-# 60 20 (3 pairs: value - weight)
+# 3 50
+# 60 20
 # 100 50
 # 120 30
 # Output:

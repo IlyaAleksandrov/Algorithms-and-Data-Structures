@@ -30,7 +30,7 @@
 # restrictions.
 
 # Constraints. 1 ≤ 𝑛 ≤ 100; 0 ≤ 𝑚 ≤ 10 000; 1 ≤ 𝑢, 𝑣 ≤ 𝑛; 1 ≤ 𝑐 ≤ 10 000. It is guaranteed that
-# 𝑚 · EvacuatePerHour ≤ 2 · 108, where EvacuatePerHour is the maximum number of people that can
+# 𝑚 · EvacuatePerHour ≤ 2 · 10^8, where EvacuatePerHour is the maximum number of people that can
 # be evacuated from the city each hour — the number which you need to output.
 
 # Output Format. Output a single integer — the maximum number of people that can be evacuated from
@@ -45,20 +45,21 @@ class Edge:
         self.capacity = capacity
         self.flow = 0
 
-# Комментарии от составителей задачи:
+
+# Comment from the authors of the task:
 # This class implements a bit unusual scheme for storing edges of the graph,
 # in order to retrieve the backward edge for a given edge quickly.
 class FlowGraph:
 
     def __init__(self, n):
-        # Комментарии от составителей задачи:
+        # Comment from the authors of the task:
         # List of all - forward and backward - edges
         self.edges = []
         # These adjacency lists store only indices of edges in the edges list
         self.graph = [[] for _ in range(n)]
 
     def add_edge(self, from_, to, capacity):
-        # Комментарий от составителей задачи:
+        # Comment from the authors of the task:
         # Note that we first append a forward edge and then a backward edge,
         # so all forward edges are stored at even indices (starting from 0),
         # whereas backward edges are stored at odd indices.
@@ -94,9 +95,12 @@ def read_data():
 
 def max_flow(graph, from1, to):
     flow = 0
-    # реализуем Breadth - first Search (см. 3.3)
-    # Мы используем BFS для нахождения кратчайшего пути, т.к. он поможет избежать осложнений на некоторых графах
-    # (см. лекции) Также необходимо понимать механизм построения residual графа.
+
+    # implementation of Breadth - first search (task 3.3)
+    # We use BFS to find the shortest path, because it helps avoid complications on some graphs
+    # (see lectures and example below)
+    # It is also necessary to understand the mechanism of constructing the residual graph.
+
     def BFS(graph, from1, to):
         parent = [0 for i in range(graph.size())]
         dist = [-1 for i in range(graph.size())]
@@ -112,7 +116,7 @@ def max_flow(graph, from1, to):
                     dist[dir] = dist[x] + graph.get_edge(i).capacity
                     parent[dir] = i
         route = []
-        # строим самый короткий маршрут
+        # build the shortest path
         if dist[to] > 0:
             while to != 0:
                 route.append(parent[to])
@@ -122,17 +126,17 @@ def max_flow(graph, from1, to):
         else:
             return False
 
-    # пока мы можем построить любой путь из пункта назначения в конечный продолжаем цикл
+    # while we can build any way from the source to destination we continue the cycle
     while True:
         path = BFS(graph, from1, to)
         if not path:
             break
-        # ищем в найденом маршруте ребро с наименьшей пропускной способностью
+        # we search in the found route the edge with the lowest capacity
         minCap = graph.get_edge(path[0]).capacity
         for i in path:
             if graph.get_edge(i).capacity < minCap:
                 minCap = graph.get_edge(i).capacity
-        # добавляем поток равный пропускной способности узкого ребра в граф
+        # add a stream equal to the capacity of the narrow edge in the graph
         for j in path:
             graph.add_edge(graph.get_edge(j).v, graph.get_edge(j).u, minCap)
             graph.add_flow(j, minCap)
@@ -144,3 +148,21 @@ def max_flow(graph, from1, to):
 if __name__ == '__main__':
     graph = read_data()
     print(max_flow(graph, 0, graph.size() - 1))
+
+# Example of input:
+# 4 5
+# 1 2 10000
+# 1 3 10000
+# 2 3 1
+# 3 4 10000
+# 2 4 10000
+# Output:
+# 20000
+#
+# Explanation:
+# We can evacuate 10000 people through the route 1 − 2 − 4 and additional 10000 people through the
+# route 1−3−4 totalling in 20000 people per hour. It is impossible to evacuate more people each hour,
+# as the total capacity of the roads outgoing from the city number 1 is 20000 people per hour.
+# Pay attention to this example if you think of using a simple Ford–Fulkerson algorithm. Note how it
+# works on such graph, and why it may be a bad idea to use this algorithm on big networks with large
+# capacities.

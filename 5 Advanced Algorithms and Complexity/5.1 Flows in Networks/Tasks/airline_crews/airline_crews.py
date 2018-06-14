@@ -67,7 +67,7 @@ class MaxMatching:
                 self.edges[id].flow += flow
                 self.edges[id ^ 1].flow -= flow
 
-        # механизм нахождения максимального потока расписан в предидущей задаче
+        # the mechanism for finding the maximum flow is described in the previous problem (evacuation task)
         def max_flow(graph, from1, to):
             flow = 0
 
@@ -110,9 +110,9 @@ class MaxMatching:
                 flow += minCap
             return flow
 
-        # задачу поиска максимального количества путей необходимо свести к задаче максимального потока.
-        # Нужно добавить исходную и конечную вершины и построить максимальный поток через них.
-        # Все ребра длинны 1.
+        # The task of finding the maximum number of paths must be reduced to the maximum flow problem.
+        # You need to add the source and destination vertices and build the maximum thread through them.
+        # All edges are 1 distance long.
         n = len(adj_matrix)
         m = len(adj_matrix[0])
         result = [-1 for _ in range(n)]
@@ -145,3 +145,17 @@ class MaxMatching:
 if __name__ == '__main__':
     max_matching = MaxMatching()
     max_matching.solve()
+
+# Example of input:
+# 2 2
+# 1 1
+# 1 0
+
+# Output:
+# 2 1
+
+# Explanation:
+
+# If we assign the first crew to the first flight, we won’t be able to assign any crew to the second flight.
+# It is optimal to assign the second crew to the first flight and the first crew to the second flight, because
+# this way we have a crew assigned to each flight.

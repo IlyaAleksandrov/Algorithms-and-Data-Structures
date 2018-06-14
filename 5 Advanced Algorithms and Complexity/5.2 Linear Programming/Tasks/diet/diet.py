@@ -12,17 +12,11 @@
 # is the sum of pleasure you get from consuming each particular dish or drink, and that is proportional
 # to the amount amount𝑖 of that dish or drink consumed.
 # The budget restriction and the nutrition recommendations can be converted into a system of linear
-# inequalities like
-# 𝑚Σ︀
-# 𝑖=1
-# cost𝑖 · amount𝑖 ≤ Budget, amount𝑖 ≥ 1000 and amount𝑖 − 2 · amount𝑗 ≥ 0, where
+# inequalities like (sum from i = 1 to m)cost𝑖 · amount𝑖 ≤ Budget, amount𝑖 ≥ 1000 and amount𝑖 − 2 · amount𝑗 ≥ 0, where
 # amount𝑖 is the amount of 𝑖-th dish or drink consumed, cost𝑖 is the cost of one item of 𝑖-th dish or
 # drink, and 𝐵𝑢𝑑𝑔𝑒𝑡 is your total budget for the diet. Of course, you can only eat a non-negative amount
 # amount𝑖 of 𝑖-th item, so amount𝑖 ≥ 0. The goal to maximize total pleasure is reduced to the linear
-# objective
-# 𝑚Σ︀
-# 𝑖=1
-# amount𝑖 · pleasure𝑖 → max where pleasure𝑖 is the pleasure you get after consuming one
+# objective (sum from i = 1 to m)amount𝑖 · pleasure𝑖 → max where pleasure𝑖 is the pleasure you get after consuming one
 # unit of 𝑖-th dish or drink (some dishes like fish oil you don’t like at all, so pleasure𝑖 can be negative).
 # Combined, all this is a linear programming problem which you need to solve now.
 
@@ -45,11 +39,11 @@
 # amounts for each dish and drink. Output all the numbers with at least 15 digits after the decimal
 # point.
 # The amounts you output will be inserted into the inequalities, and all the inequalities will be checked.
-# An inequality 𝐿 ≤ 𝑅 will be considered satisfied if actually 𝐿 ≤ 𝑅 + 10−3. The total pleasure of your
+# An inequality 𝐿 ≤ 𝑅 will be considered satisfied if actually 𝐿 ≤ 𝑅 + 10^−3. The total pleasure of your
 # solution will be calculated and compared with the optimal value. Your output will be accepted if all
 # the inequalities are satisfied and the total pleasure of your solution differs from the optimal value by
-# at most 10−3. We ask you to output at least 15 digits after the decimal point, although
-# we will check the answer with precision of only 10−3. This is because in the process of
+# at most 10^−3. We ask you to output at least 15 digits after the decimal point, although
+# we will check the answer with precision of only 10^−3. This is because in the process of
 # checking the inequalities we will multiply your answers with coefficients from the matrix
 # 𝐴 and with the coefficients of the vector pleasure, and those coefficients can be pretty
 # large, and computations with real numbers on a computer are not always precise. This
@@ -171,14 +165,13 @@ def test(solution, A, b):
     return True
 
 
-# задача использует предидущеую (energy values)
+# the task uses implementation of Gaussian Elimination from the previous task (energy values)
 def solve_diet_problem(n, m, A, b, c):
-    # создаем сет всех вариантов пересечени уравнений размерности m (кол-во переменных)
+    # we create a set of all variants of intersection of equations of dimension m (number of variables)
     set_interseption = itertools.combinations([i for i in range(n + m + 1)], m)
     maximum = -10**9
     bestSolution = []
-    flagInf = False
-    # для каждого пересечения применяем метод Гауса из прошлой задачи
+    # for each intersection we apply the Gaus method from the previous task (energy values)
     for i in set_interseption:
         Aevac = []
         bEvac = []
@@ -190,7 +183,7 @@ def solve_diet_problem(n, m, A, b, c):
         ans = 0
         for s in range(m):
             ans += c[s]*solution[s]
-        # тестирум решение уравнения на соответствие прочим условиям
+        # test the solution of the equation for other conditions
         if test(solution, A, b):
             if ans >= maximum:
                 maximum = ans
@@ -198,15 +191,16 @@ def solve_diet_problem(n, m, A, b, c):
                 infTest = i
     if bestSolution == []:
         return -1, []
-    # если лучшее решение содержит уравнение n(уравнение для проверки существования бесконечного решения см. строку 218)
-    # значит решение не ограничено
+    # if the best solution contains the equation n
+    # (the equation for verifying the existence of an infinite solution see line 212)
+    # means the solution is unlimited
     elif n in infTest:
          return 1, []
     else:
         return 0, bestSolution
 
 
-# суть решения в том что мы берем все точки пересечения уравнений и проверяем их оптимальность
+# the solution is that we take all the points of intersection of the equations and check their optimality
 flagSwap = False
 flagExit = False
 n, m = list(map(int, stdin.readline().split()))
@@ -215,10 +209,10 @@ for i in range(n):
     A += [list(map(int, stdin.readline().split()))]
 b = list(map(int, stdin.readline().split()))
 c = list(map(int, stdin.readline().split()))
-# добавляем уравнение для проверки существования бесконечного решения (x+y+...+z <= inf)
+# we add an equation for testing the existence of an infinite solution (x + y + ... + z <inf)
 A.append([1 for i in range(m)])
 b.append(10 ** 9)
-# добавляем уравнения для каждой переменной (переменная больше нуля)
+# add equations for each variable (the variable is greater than zero)
 for i in range(m):
     s = [0 for i in range(m)]
     s[i] = -1
@@ -236,3 +230,16 @@ if anst == 0:
     print(' '.join(list(map(lambda x: '%.18f' % x, ansx))))
 if anst == 1:
     print("Infinity")
+# Example of input:
+# 1 3
+# 0 0 1
+# 3
+# 1 1 1
+# Output:
+# Infinity
+# Explanation:
+# The restrictions in this case are only that all amounts are non-negative (these restrictions are always
+# there, because you cannot consume negative amount of a dish or a drink) and that amount3 ≤ 3. There
+# is no restriction on how much to consume of items 1 and 2, and each of them has positive pleasure
+# value, so you can take as much of items 1 and 2 as you want and receive as much total pleasure as you
+# want. In this case, you should output “Infinite” (without quotes).

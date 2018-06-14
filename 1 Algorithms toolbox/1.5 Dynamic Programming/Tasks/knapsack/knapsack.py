@@ -41,7 +41,7 @@ if __name__ == '__main__':
     W, n, *w = list(map(int, input.split()))
     print(optimal_weight(W, w))
 # Example of input:
-# 10 3 (10 - capacity, 3 - number of bars)
-# 1 4 8 (weight of bars)
+# 10 3
+# 1 4 8
 # Output:
 # 9

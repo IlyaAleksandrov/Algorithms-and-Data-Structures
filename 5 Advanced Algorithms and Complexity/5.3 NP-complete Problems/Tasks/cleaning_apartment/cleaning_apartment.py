@@ -24,8 +24,7 @@
 # Note that a corridor from 𝑢 to 𝑣 can be listed several times, and there can be listed both a corridor
 # from 𝑢 to 𝑣 and a corridor from 𝑣 to 𝑢.
 
-# Constraints. 1 ≤ 𝑛 ≤ 30; 0 ≤ 𝑚 ≤ 𝑛(𝑛−1)
-# 2 ; 1 ≤ 𝑢, 𝑣 ≤ 𝑛.
+# Constraints. 1 ≤ 𝑛 ≤ 30; 0 ≤ 𝑚 ≤ 𝑛(𝑛−1)/2 ; 1 ≤ 𝑢, 𝑣 ≤ 𝑛.
 
 # Output Format. You need to output a boolean formula in the CNF form in a specific format. If it is
 # possible to go through all the rooms and visit each one exactly once to clean it, the formula must be
@@ -53,7 +52,7 @@
 # won’t pass, and you will violate Coursera Honor Code by doing that.
 import itertools
 
-# задача идентична предидущей: формируем набор условий (см. gsm network)
+# the task is identical to the previous one: we form a set of conditions (see gsm network)
 n, m = map(int, input().split())
 edges = [list(map(int, input().split())) for i in range(m)]
 adj = [[] for _ in range(n)]

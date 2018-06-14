@@ -64,12 +64,19 @@ import itertools
 # X11 X12 X13 - условие означает что вершина должна иметь минимум один цвет (все 3 переменных не могут быть равны 0)
 # (-X11 -X12) (-X11 -X13) (-X12 -X13) - вершины не могут иметь два цвета
 # (если две переменных будут true то условие не выполнится)
+# The output must provide a set of conditions
+# if the conditions have a single solution, then the whole problem will have a solution
+# for the solution is constructed matrix Xij  - the specific vertex has a specific color
+# Examples:
+# X11 X12 X13 - condition means that the vertex must have at least one color (all 3 variables can not be 0)
+# (-X11 -X12) (-X11 -X13) (-X12 -X13) - vertices can not have two colors
+# (if two variables are true, then the condition is not fulfilled)
 
 def varnum(i, j):
     return i + (j - 1)*n
 
 
-# добавление условий "только один" (вершины не могут иметь два цвета)
+# adding conditions "only one" (vertices can not have two colors)
 def exactly_one_of(literals):
     clauses.append([l for l in literals])
 
@@ -77,7 +84,7 @@ def exactly_one_of(literals):
         clauses.append([-l for l in pair])
 
 
-# вывод всех условий
+# output of all conditions
 def printEquisatisfiableSatFormula():
     print(n * 4 + m * 3, n * 3)
     for i in clauses:

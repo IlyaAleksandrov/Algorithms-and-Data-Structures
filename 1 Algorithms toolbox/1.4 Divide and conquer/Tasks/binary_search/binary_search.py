@@ -42,7 +42,7 @@ if __name__ == '__main__':
     for x in data[n + 2:]:
         print(binary_search(a, x,  0, len(a) - 1), end=' ')
 # example of input:
-# 5 1 5 8 12 13 (5 - number of elements, after sequence of sort elements)
-# 5 8 1 23 1 11 (5 - number of elements to find, after sequence of elements to find in previous array)
+# 5 1 5 8 12 13
+# 5 8 1 23 1 11
 # output:
 # 2 0 -1 0 -1

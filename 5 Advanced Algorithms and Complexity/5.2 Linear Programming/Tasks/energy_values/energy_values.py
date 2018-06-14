@@ -19,12 +19,12 @@
 # Your output for a particular test input will be accepted if all the numbers in the output are considered
 # correct. The amounts and energy values are of course approximate, and the computations in real
 # numbers on a computer are not always precise, so each of the numbers in your output will be considered
-# correct if either absolute or relative error is less than 10−2. That is, if the correct number is 5.245000,
+# correct if either absolute or relative error is less than 10^−2. That is, if the correct number is 5.245000,
 # and you output 5.235001, your number will be considered correct, but 5.225500 will not be accepted.
 # Also, if the correct number is 1001, and you output 1000, your answer will be considered correct,
-# because the relative error will be less than 10−2, but if the correct answer is 0.1, and you output 0.05,
+# because the relative error will be less than 10^−2, but if the correct answer is 0.1, and you output 0.05,
 # your answer will not be accepted, because in this case both the absolute error (0.05) and the relative
-# error (0.5) are more than 10−2. Note that we ask you to output at least 3 digits after the
+# error (0.5) are more than 10^−2. Note that we ask you to output at least 3 digits after the
 # decimal point, although we only require precision of 10−2, intentionally: if you output
 # only 2 digits after the decimal point, your answer can be rejected while being correct
 # because of the rounding issues. The easiest way to avoid this mistake is to output at least
@@ -112,7 +112,7 @@ def MarkPivotElementUsed(pivot_element, used_rows, used_columns):
     used_columns[pivot_element.column] = True
 
 
-# реализация метода Гауса для решения уравнений
+# implementation Gaussian Elimination
 def SolveEquation(equation):
     a = equation.a
     b = equation.b
@@ -120,16 +120,16 @@ def SolveEquation(equation):
     global flagSwap
     used_columns = [False] * (size)
     used_rows = [False] * (size)
-    # для каждого уравнения выполняем следующие действия
+    # for each equation we perform the following actions
     for step in range(size):
-        # выбираем элемент (первый ненулевой элемент в необработаной области)
+        # select the element (the first nonzero element in the unprocessed region)
         pivot_element = SelectPivotElement(a, used_rows, used_columns)
-        # при необходимости меняем строки местами(если элемент равен 0)
+        # if necessary, change the rows in places (if the element is 0)
         if flagSwap:
             SwapLines(a, b, used_rows, pivot_element)
-        # выполняем преобразования таблицы с использованием выбраного элемента
+        # we perform table conversions using the selected element
         ProcessPivotElement(a, b, pivot_element)
-        # отмечаем выбраное уравнение обработанным
+        # note the chosen equation treated
         MarkPivotElementUsed(pivot_element, used_rows, used_columns)
 
     return b
@@ -149,3 +149,15 @@ if __name__ == "__main__":
         PrintColumn(solution)
     exit(0)
 
+# Example of input:
+# 2
+# 5 -5 -1
+# -1 -2 -1
+
+# Output:
+# 0.200000 0.400000
+
+# Explanation:
+# Beware that there will be tests with negative amounts and negative total energy values,
+# although this is impossible in reality! Also note that the answers can be non-integer! You
+# can check that the numbers match: 5 · 0.2 + (−5) · 0.4 = −1 and (−1) · 0.2 + (−2) · 0.4 = −1.
