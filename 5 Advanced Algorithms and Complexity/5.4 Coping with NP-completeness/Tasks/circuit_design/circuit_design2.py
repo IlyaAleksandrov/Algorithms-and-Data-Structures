@@ -2,6 +2,7 @@
 # In this problem, you will determine how to connect the modules of an
 # integrated circuit with wires so that all the wires can be routed on the
 # same layer of the circuit.
+
 # Problem Description
 # Task. VLSI or Very Large-Scale Integration is a process of creating an integrated circuit by combining
 # thousands of transistors on a single chip. You want to design a single layer of an integrated circuit.
@@ -24,19 +25,21 @@
 # pair of wires intersects in any pair of possible positions, we won’t be able to design a circuit. Your
 # task is to determine whether it is possible, and if yes, determine the direction of bending for each of
 # the wires.
+
 # Input Format. The input represents a 2-CNF formula. The first line contains two integers 𝑉 and 𝐶 —
 # the number of variables and the number of clauses respectively. Each of the next 𝐶 lines contains two
 # non-zero integers 𝑖 and 𝑗 representing a clause in the CNF form. If 𝑖 > 0, it represents 𝑥𝑖, otherwise
-# if 𝑖 < 0, it represents 𝑥−𝑖, and the same goes for 𝑗. For example, a line “2 3” represents a clause
-# (𝑥2 𝑂𝑅 𝑥3), line “1 -4” represents (𝑥1 𝑂𝑅 𝑥4), line “-1 -3” represents (𝑥1 𝑂𝑅 𝑥3), and line “0 2”
+# if 𝑖 < 0, it represents !𝑥−𝑖, and the same goes for 𝑗. For example, a line “2 3” represents a clause
+# (𝑥2 𝑂𝑅 𝑥3), line “1 -4” represents (𝑥1 𝑂𝑅 !𝑥4), line “-1 -3” represents (𝑥1 𝑂𝑅 𝑥3), and line “0 2”
 # cannot happen, because 𝑖 and 𝑗 must be non-zero.
-# Constraints. 1 ≤ 𝑉,𝐶 ≤ 1 000 000; −𝑉 ≤ 𝑖, 𝑗 ≤ 𝑉 ; 𝑖, 𝑗 ̸= 0.
+
+# Constraints. 1 ≤ 𝑉,𝐶 ≤ 1 000 000; −𝑉 ≤ 𝑖, 𝑗 ≤ 𝑉 ; 𝑖, 𝑗 != 0.
+
 # Output Format. If the 2-CNF formula in the input is unsatisfiable, output just the word “UNSATISFIABLE”
 # (without quotes, using capital letters). If the 2-CNF formula in the input is satisfiable, output
 # the word “SATISFIABLE” (without quotes, using capital letters) on the first line and the corresponding
 # assignment of variables on the second line. For each 𝑥𝑖 in order from 𝑥1 to 𝑥𝑉 , output 𝑖 if 𝑥𝑖 = 1
 # or −𝑖 if 𝑥𝑖 = 0. For example, if a formula is satisfied by assignment 𝑥1 = 0, 𝑥2 = 1, 𝑥3 = 0,
-# 3
 # output “-1 2 -3” on the second line (without quotes). If there are several possible assignments satisfying
 # the input formula, output any one of them.
 import sys
@@ -72,7 +75,6 @@ def isSatisfiable():
     for i in clauses:
         g.append([-i[0], i[1]])
         g.append([-i[1], i[0]])
-
 
     lst = list(range(-n, 0)) + list(range(1, n + 1))
     gReverseEdges = []
@@ -125,5 +127,16 @@ def main():
             else:
                 print(i, end=" ")
 
+
 threading.Thread(target=main).start()
-    # print(" ".join(str(-i-1 if result[i] else i+1) for i in range(n)))
+
+# Example of input:
+# 1 2
+# 1 1
+# -1 -1
+
+# Output:
+# UNSATISFIABLE
+
+# Explanation:
+# The input formula is (𝑥1 𝑂𝑅 𝑥1) 𝐴𝑁𝐷 (!𝑥1 𝑂𝑅 !𝑥1), and it is unsatisfiable.

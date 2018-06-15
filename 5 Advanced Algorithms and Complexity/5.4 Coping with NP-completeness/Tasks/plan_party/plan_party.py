@@ -18,7 +18,7 @@
 # you know that either 𝑢 is the boss of 𝑣 or vice versa (you don’t really need to know which one is the
 # boss, but you can invite only one of them or none of them).
 
-# Constraints. 1 ≤ 𝑛 ≤ 100 000; 1 ≤ 𝑓𝑖 ≤ 1 000; 1 ≤ 𝑢, 𝑣 ≤ 𝑛; 𝑢 ̸= 𝑣.
+# Constraints. 1 ≤ 𝑛 ≤ 100 000; 1 ≤ 𝑓𝑖 ≤ 1 000; 1 ≤ 𝑢, 𝑣 ≤ 𝑛; 𝑢 != 𝑣.
 
 # Output Format. Output the maximum possible total fun factor of the party (the sum of fun factors of all
 # the invited people).
@@ -48,9 +48,9 @@ def ReadTree():
     return tree
 
 
-# вычисляем максимальное значение fun фактора для дерева с корнем в вершине vertex,
-# так как идем с низу вверх используем значение уже посчитанных вершин.
-# Для листьтев дерева максимальный фан фактор равен фан фактору листа
+# calculate the maximum value of the fun factor for the tree with the root at the vertex,
+# since we go from the bottom up we use the value of the counted vertices.
+# For tree leaves, the maximum fan factor is equal to the fan factor of the leave itself
 def funParty(vertex, parent):
     global D
     if D[vertex] == 10**9:
@@ -71,9 +71,9 @@ def funParty(vertex, parent):
     return D[vertex]
 
 
-# перебираем вершины с помощью dfs.
-# для каждой вершины (начиная с нижних) выполняем функцию funParty, которая
-# считает максимальное значение fun фактора для поддерева с корнем в этой вершине
+# sort the vertices using dfs.
+# for each vertex (starting from the bottom) we perform funParty function, which
+# considers the maximum value of the fun factor for the subtree with the root at this vertex
 def dfs(tree, vertex, parent):
     global visited
     visited[vertex] = True
@@ -100,3 +100,16 @@ D = [10**9 for i in range(size)]
 visited = [False for i in range(size)]
 # This is to avoid stack overflow issues
 threading.Thread(target=main).start()
+
+# Example of input:
+# 2
+# 1 2
+# 1 2
+
+# Output:
+# 2
+
+# Explanation:
+# There are two people, and one of them is the boss of another one. We can invite only one of them. If
+# we invite the second one, the total fun factor is 2, and it is bigger than total fun factor of 1 that we
+# get in case we invite the first one.
