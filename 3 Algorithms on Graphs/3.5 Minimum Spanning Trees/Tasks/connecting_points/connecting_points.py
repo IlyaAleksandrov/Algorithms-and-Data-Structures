@@ -21,6 +21,7 @@
 import sys
 import math
 
+# implementation of Kruskal’s algorithm
 
 def minimum_distance(x, y):
     # Initially, all the vertices are disconnected, as we connect them, it is necessary to know do they lie
