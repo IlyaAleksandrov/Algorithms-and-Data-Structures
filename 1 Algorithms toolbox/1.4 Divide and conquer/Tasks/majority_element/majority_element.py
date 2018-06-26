@@ -5,20 +5,34 @@
 
 # Constraints. 1 ≤ 𝑛 ≤ 10^5; 0 ≤ 𝑎𝑖 ≤ 10^9 for all 0 ≤ 𝑖 < 𝑛.
 
-# Output Format. Output 1 if the sequence contains an element that appears strictly more than 𝑛/2 times,
-# and 0 otherwise.
+# Output Format. Output majority element if the sequence contains an element that appears strictly more than 𝑛/2 times,
+# and -1 otherwise.
 
 import sys
 
 
 def get_majority_element(a):
-    b = {}
-    for i in a:
-        b[i] = b.get(i, 0) + 1
-    for j in b:
-        if b.get(j) > len(a)/2:
-            return 1
-    return 0
+    l = len(a)
+    if l == 2:
+        if a[0] == a[1]:
+            return a[0]
+        else:
+            return -1
+    elif l == 1:
+        return a[0]
+
+    right = get_majority_element(a[: l/2])
+    left = get_majority_element(a[l/2:])
+
+    if right == -1 and left >= 0:
+        return left
+    elif left == -1 and right >= 0:
+        return right
+
+    if right == left:
+        return right
+    else:
+        return -1
 
 
 if __name__ == '__main__':
